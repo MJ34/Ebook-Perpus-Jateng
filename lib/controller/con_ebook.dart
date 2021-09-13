@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ebook/controller/api.dart';
-import 'package:ebook/model/model_ebook.dart ';
+import 'package:ebook/model/model_ebook.dart';
 
 Future<List<ModelEbook>> fetchEbook(List<ModelEbook> ebook) async{
   var request = await Dio().get(ApiConstant().baseUrl+ApiConstant().api+ApiConstant().latest);
@@ -20,6 +20,8 @@ Future<List<ModelEbook>> fetchEbook(List<ModelEbook> ebook) async{
         language: latest['language'],
         rating: latest['rating'],
         free: latest['free']));
+    
+    /*print("Isi Dari Data ini ${latest['photo']}");*/
   }
   return ebook;
 }
