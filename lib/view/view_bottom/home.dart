@@ -148,6 +148,140 @@
                           },
                       ),
                     ),
+
+                    //Category
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: FutureBuilder(
+                        future: getCategory,
+                        builder: (BuildContext context, AsyncSnapshot<List<ModelCategory>> snapshot) {
+                          if(snapshot.connectionState == ConnectionState.done){
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text('Category', style: TextStyle(
+                                      color: Colors.black, fontWeight: FontWeight.bold
+                                  ),),
+                                ),
+                                SizedBox(
+                                  child: ListView.builder(
+                                      itemCount: snapshot.data!.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (BuildContext cxt, int index){
+                                        return GestureDetector(
+                                          onTap: (){},
+                                          child: Container(
+                                              padding: EdgeInsets.all(5),
+                                              child: Stack(
+                                                children: [
+                                                  ClipRRect(
+                                                    child: Image.network(
+                                                      listCategory[index].photoCat,
+                                                      height: 15.h,
+                                                      width: 25.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  ClipRRect(
+                                                      child: Container(
+                                                        height: 15.h,
+                                                        width: 25.w,
+                                                        color: Colors.black.withOpacity(0.7),
+                                                      )
+                                                  ),
+                                                  Positioned(child: Center(
+                                                    child: Text(listCategory[index].name, style: TextStyle(
+                                                        color: Colors.white, fontWeight: FontWeight.w500
+                                                    ), maxLines: 1, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis,),
+                                                  ),
+                                                    bottom: 0, top: 0, right: 0, left: 0,
+                                                  )
+                                                ],
+                                              )
+                                          ),
+                                        );
+                                      }
+                                  ),
+                                  height: 15.h,
+                                )
+                              ],
+                            );
+                          }else{
+                            return Container();
+                          }
+                        },
+                      ),
+                    ),
+                    //Coming Soon
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: FutureBuilder(
+                        future: getComing,
+                        builder: (BuildContext context, AsyncSnapshot<List<ModelEbook>> snapshot) {
+                          if(snapshot.connectionState == ConnectionState.done){
+                            return Container(
+                              color: Colors.blueGrey.withOpacity(0.5),
+                              padding: EdgeInsets.only(top: 2.0.h),
+                              child: Stack(
+                                children: [
+                                  Center(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      child: const Text('Segera Hadir', style: TextStyle(
+                                          color: Colors.black, fontWeight: FontWeight.bold, fontSize: 28, letterSpacing: 2
+                                      ), textAlign: TextAlign.center,),
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: EdgeInsets.only(top: 3.h),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: snapshot.data!.length,
+                                        itemBuilder: (BuildContext ctx, int index){
+                                          return GestureDetector(
+                                            onTap:(){},
+                                            child: Container(
+                                              child: Column(
+                                                children: [
+                                                  ClipRRect(
+                                                    child: Image.network(
+                                                      listComing[index].photo,
+                                                      height: 15.h,
+                                                      width: 25.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 0.5.h,),
+                                                  Container(
+                                                    width: 25.w,
+                                                    child: Text(
+                                                      listComing[index].title,
+                                                      style: const TextStyle(
+                                                          color: Colors.black
+                                                      ), maxLines: 2, overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                    ),
+                                    height: 25.h,
+                                  )
+                                ],
+                              ),
+                            );
+                          }else{
+                            return Container();
+                          }
+                        },
+                      ),
+                    ),
                     //Item Terbaru
                     Container(
                       child: FutureBuilder(
@@ -220,140 +354,6 @@
                               ],
                             );
                           } else {
-                            return Container();
-                          }
-                        },
-                      ),
-                    ),
-
-                    //Coming Soon
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: FutureBuilder(
-                        future: getComing,
-                        builder: (BuildContext context, AsyncSnapshot<List<ModelEbook>> snapshot) {
-                          if(snapshot.connectionState == ConnectionState.done){
-                            return Container(
-                              color: Colors.blueGrey.withOpacity(0.5),
-                              padding: EdgeInsets.only(top: 2.0.h),
-                              child: Stack(
-                                children: [
-                                  Center(
-                                    child: Container(
-                                      padding: const EdgeInsets.all(10),
-                                      child: const Text('Segera Hadir', style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32, letterSpacing: 10
-                                      ), textAlign: TextAlign.center,),
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: EdgeInsets.only(top: 3.h),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                        itemCount: snapshot.data!.length,
-                                        itemBuilder: (BuildContext ctx, int index){
-                                        return GestureDetector(
-                                        onTap:(){},
-                          child: Container(
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                child: Image.network(
-                                  listComing[index].photo,
-                                  height: 15.h,
-                                  width: 25.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(height: 0.5.h,),
-                              Container(
-                                width: 25.w,
-                                child: Text(
-                                  listComing[index].title,
-                                  style: const TextStyle(
-                                      color: Colors.black
-                                  ), maxLines: 2, overflow: TextOverflow.ellipsis,
-                                ),
-                              )
-                            ],
-                          ),
-                          ),
-                                        );
-                                        }
-                                  ),
-                                    height: 25.h,
-                                  )
-                                ],
-                              ),
-                            );
-                          }else{
-                            return Container();
-                          }
-                        },
-                      ),
-                    ),
-                    //Category
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: FutureBuilder(
-                        future: getCategory,
-                        builder: (BuildContext context, AsyncSnapshot<List<ModelCategory>> snapshot) {
-                          if(snapshot.connectionState == ConnectionState.done){
-                            return Column(
-                              children: [
-                                Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text('Category', style: TextStyle(
-                                  color: Colors.black, fontWeight: FontWeight.bold
-                                ),),
-                                ),
-                                SizedBox(
-                                  child: ListView.builder(
-                                    itemCount: snapshot.data!.length,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (BuildContext cxt, int index){
-                                        return GestureDetector(
-                                          onTap: (){},
-                                          child: Container(
-                                            padding: EdgeInsets.all(5),
-                                            child: Stack(
-                                              children: [
-                                                 ClipRRect(
-                                                   child: Image.network(
-                                                     listCategory[index].photoCat,
-                                                     height: 15.h,
-                                                     width: 25.w,
-                                                     fit: BoxFit.cover,
-                                                   ),
-                                                 ),
-                                                ClipRRect(
-                                                  child: Container(
-                                                    height: 15.h,
-                                                    width: 25.w,
-                                                    color: Colors.black.withOpacity(0.7),
-                                                  )
-                                                ),
-                                                Positioned(child: Center(
-                                                child: Text(listCategory[index].name, style: TextStyle(
-                                                  color: Colors.white, fontWeight: FontWeight.w500
-                                                ), maxLines: 1, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis,),
-                                                ),
-                                                  bottom: 0, top: 0, right: 0, left: 0,
-                                                )
-                                              ],
-                                            )
-                                          ),
-                                        );
-                                    }
-                                  ),
-                                  height: 15.h,
-                                )
-                              ],
-                            );
-                          }else{
                             return Container();
                           }
                         },

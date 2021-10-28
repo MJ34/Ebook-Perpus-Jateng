@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'ebook_account.dart';
 import 'ebook_favorite.dart';
 import 'ebook_library.dart';
+import 'ebook_news.dart';
 import 'home.dart';
 
 class BottomView extends StatefulWidget {
@@ -18,6 +19,7 @@ class _BottomViewState extends State<BottomView> {
   List<Widget> items = [
     Home(),
     EbookLibrary(),
+    EbookNews(),
     EbookFavorite(),
     EbookAccount()
   ];
@@ -38,6 +40,10 @@ class _BottomViewState extends State<BottomView> {
            BottomNavigationBarItem(
                icon: Icon(Icons.my_library_books_rounded),
                label: 'Library'
+           ),
+           BottomNavigationBarItem(
+               icon: Icon(Icons.article_rounded),
+               label: 'Berita'
            ),
            BottomNavigationBarItem(
                icon: Icon(Icons.bookmark_border),
