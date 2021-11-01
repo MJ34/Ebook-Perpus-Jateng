@@ -69,8 +69,23 @@ class _LoginState extends State<Login> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    prefLoad().then((value) {
+      setState(() {
+        if (value != null) {
+          pushPageRemove(context, BottomView());
+        }
+      });
+    });
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         margin: EdgeInsets.only(top: 10.h),
         child: Stack(

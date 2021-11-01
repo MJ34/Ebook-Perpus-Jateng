@@ -7,4 +7,5 @@ class ApiConstant{
   String category = "category";
   String register = "utils/register.php";
   String login = "utils/login.php";
+  String viewPhoto = "utils/viewphoto.php";
 }
