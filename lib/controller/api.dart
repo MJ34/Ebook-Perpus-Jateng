@@ -8,4 +8,5 @@ class ApiConstant{
   String register = "utils/register.php";
   String login = "utils/login.php";
   String viewPhoto = "utils/viewphoto.php";
+  String detail = "pdf_by_id=";
 }

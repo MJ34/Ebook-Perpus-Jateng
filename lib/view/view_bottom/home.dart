@@ -1,12 +1,14 @@
   import 'package:dio/dio.dart';
-import 'package:ebook/controller/api.dart';
-import 'package:ebook/controller/con_category.dart';
+  import 'package:ebook/controller/api.dart';
+  import 'package:ebook/controller/con_category.dart';
   import 'package:ebook/controller/con_coming.dart';
   import 'package:ebook/controller/con_ebook.dart';
   import 'package:ebook/controller/con_latest.dart';
   import 'package:ebook/model/model_category.dart';
   import 'package:ebook/model/model_ebook.dart';
-import 'package:ebook/shared_pref.dart';
+import 'package:ebook/routers.dart';
+  import 'package:ebook/shared_pref.dart';
+import 'package:ebook/view/detail/ebook_detail.dart';
   import 'package:flutter/cupertino.dart';
   import 'package:flutter/material.dart';
   import 'package:flutter_swiper/flutter_swiper.dart';
@@ -118,7 +120,11 @@ import 'package:ebook/shared_pref.dart';
                                 itemCount: snapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     return GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        pushPage(context, EbookDetail(
+                                            ebookId: listSlider[index].id,
+                                            status: listSlider[index].statusNews));
+                                      },
                                       child: Padding(
                                         padding: const EdgeInsets.all(10),
                                         child: Container(
@@ -179,7 +185,6 @@ import 'package:ebook/shared_pref.dart';
                           },
                       ),
                     ),
-
                     //Category
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -274,7 +279,11 @@ import 'package:ebook/shared_pref.dart';
                                         itemCount: snapshot.data!.length,
                                         itemBuilder: (BuildContext ctx, int index){
                                           return GestureDetector(
-                                            onTap:(){},
+                                            onTap:(){
+                                              pushPage(context, EbookDetail(
+                                                  ebookId: listComing[index].id,
+                                                  status: listComing[index].statusNews));
+                                            },
                                             child: Container(
                                               child: Column(
                                                 children: [
@@ -350,7 +359,11 @@ import 'package:ebook/shared_pref.dart';
                                         } else {
                                           //Items Buku
                                           return GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              pushPage(context, EbookDetail(
+                                                  ebookId: listPostTerbaru[index].id,
+                                                  status: listPostTerbaru[index].statusNews));
+                                            },
                                             child: Container(
                                               padding: const EdgeInsets.all(10),
                                               child: Column(
