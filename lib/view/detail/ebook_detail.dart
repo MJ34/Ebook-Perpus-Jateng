@@ -1,10 +1,16 @@
+import 'package:dio/dio.dart';
+import 'package:ebook/controller/api.dart';
 import 'package:ebook/controller/con_detail.dart';
+import 'package:ebook/controller/con_save_favorite.dart';
 import 'package:ebook/model/model_ebook.dart';
+import 'package:ebook/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:package_info/package_info.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class EbookDetail extends StatefulWidget {
@@ -22,18 +28,45 @@ class _EbookDetailState extends State<EbookDetail> {
 
   Future<List<ModelEbook>>? getDetail;
   List<ModelEbook> listDetail = [];
+  String checkFavorite = "0", id = "", name = "", email = "", photo = "";
+  SharedPreferences ? preferences;
 
   @override
   void initState() {
     super.initState();
     getDetail = fetchDetail(listDetail, widget.ebookId);
+    prefLoad().then((value) {
+      setState(() {
+        id = value[0];
+        name = value[1];
+        email = value[2];
+        checkFavorites(id);
+      });
+    });
+  }
+
+  checkFavorites(String id) async{
+    var data = {'id_course': widget.ebookId, 'id_user': id};
+    var checkFav = await Dio().post(ApiConstant().baseUrl+ApiConstant().checkFavorite, data: data);
+    var response = checkFav.data;
+    setState(() {
+      checkFavorite = response;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold (
       appBar: AppBar (
-
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: ()=>Navigator.pop(context),
+          child: Icon(Icons.arrow_back, color: Colors.black,),
+        ),
+        title: Text('Detail Ebook', style: TextStyle(
+            color: Colors.black
+        ),),
       ),
       body: Container (
         child: FutureBuilder(
@@ -80,8 +113,28 @@ class _EbookDetailState extends State<EbookDetail> {
                                       Row(
                                         children: [
                                           GestureDetector(
-                                            onTap: (){},
-                                            child: Icon(Icons.bookmark_border),
+                                            onTap: ()async{
+                                              //Save data ke tabel favorite
+                                              await showDialog(
+                                                  context: context,
+                                                  builder: (myFav)=>FutureProgressDialog(
+                                                    saveFavorite(context: myFav,
+                                                        idEbook: widget.ebookId.toString(),
+                                                        idUser: id)
+                                                  )
+                                                  ).then((value) async{
+                                                    preferences = await SharedPreferences.getInstance();
+                                                    dynamic fav = preferences!.get('saveFavorite');
+                                                    setState(() {
+                                                      checkFavorite = fav;
+                                                    });
+                                              });
+                                            },
+                                            child: checkFavorite == "already" ? Icon(
+                                              Icons.bookmark, color: Colors.blue, size: 21.sp,
+                                            ) : Icon(
+                                              Icons.bookmark_border, color: Colors.blue, size: 21.sp,
+                                            )
                                           ),
                                           SizedBox(width: 1.5.w,),
                                           Text('Publisher: ${listDetail[index].pages}', style: TextStyle(
@@ -113,7 +166,7 @@ class _EbookDetailState extends State<EbookDetail> {
                             widget.status == 0 ? Container(
                               decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.blueAccent),
                               child: Padding(
-                                padding: EdgeInsets.all(2),
+                                padding: EdgeInsets.all(8),
                                 child: Text('Segera Hadir', style: TextStyle(
                                   color: Colors.white
                                 ), textAlign: TextAlign.center,),

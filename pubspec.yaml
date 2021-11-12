@@ -46,6 +46,7 @@ dependencies:
   flutter_html: ^2.1.5
   share: ^2.0.4
   package_info: ^2.0.2
+  future_progress_dialog: ^0.2.0
 
 dev_dependencies:
   build_runner: ^2.1.4

@@ -14,3 +14,13 @@ Future prefLoad() async{
   SharedPreferences preferences = await SharedPreferences.getInstance();
   return preferences.getStringList('login');
 }
+
+saveFavoriteEbook(String favorite) async{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.setString('saveFavorite', favorite);
+}
+
+Future loadFavoriteEbook() async{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  return preferences.getString('saveFavorite');
+}
