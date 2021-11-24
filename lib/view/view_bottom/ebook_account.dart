@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:ebook/routers.dart';
+import 'package:ebook/view/login/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:ebook/controller/api.dart';
@@ -6,6 +8,7 @@ import 'package:ebook/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class EbookAccount extends StatefulWidget {
@@ -20,6 +23,7 @@ class _EbookAccountState extends State<EbookAccount> {
   File file = File('');
   final picker = ImagePicker();
   String id = "", name = "", email = "";
+  late SharedPreferences preferences;
 
   Future updatePhotoProfile()async{
     var req = http.MultipartRequest('POST', Uri.parse(ApiConstant().baseUrl+ApiConstant().updatePhoto));
@@ -122,7 +126,108 @@ class _EbookAccountState extends State<EbookAccount> {
                       ],
                     ),
                   ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10.sp),
+                  child: Text(name, style: TextStyle(
+                    color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
+                  ),),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Icon(Icons.email_outlined, color: Colors.red,),
+                    SizedBox(width: 15,),
+                    Container(
+                      margin: EdgeInsets.only(top: 10.sp),
+                      child: Text(email, style: TextStyle(
+                          color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
+                      ),),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 30.sp),
+                    child: Text('Ebook App Support', style: TextStyle(
+                      color: Colors.black12, fontSize: 14, fontWeight: FontWeight.w500
+                    ),),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: (){
+
+                    },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10.sp),
+                    child: Text('Tentang App', style: TextStyle(
+                        color: Colors.blue, fontSize: 17, fontWeight: FontWeight.w500
+                    ),),
+                  ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10.sp),
+                      child: Text('Kebijakan Privasi', style: TextStyle(
+                          color: Colors.blue, fontSize: 17, fontWeight: FontWeight.w500
+                      ),),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10.sp),
+                      child: Text('Beri Rating', style: TextStyle(
+                          color: Colors.blue, fontSize: 17, fontWeight: FontWeight.w500
+                      ),),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10.sp),
+                      child: Text('Bagikan Aplikasi', style: TextStyle(
+                          color: Colors.blue, fontSize: 17, fontWeight: FontWeight.w500
+                      ),),
+                    ),
+                  ),
+                ),
+
+                //Fungsi Logout
+                GestureDetector(
+                  onTap: ()async{
+                    preferences = await SharedPreferences.getInstance();
+                    preferences.remove('login');
+                    pushPageRemove(context, Login());
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 15.sp, bottom: 15.sp),
+                    child: Text('LOGOUT', style: TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.w500, fontSize: 20
+                    ),),
+                  ),
                 )
+
               ],
             ),
           ),
