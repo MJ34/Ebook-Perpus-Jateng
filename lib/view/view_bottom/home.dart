@@ -9,6 +9,7 @@
 import 'package:ebook/routers.dart';
   import 'package:ebook/shared_pref.dart';
 import 'package:ebook/view/detail/ebook_detail.dart';
+import 'package:ebook/view/ebook_by_cat/ebook_by_cat.dart';
   import 'package:flutter/cupertino.dart';
   import 'package:flutter/material.dart';
   import 'package:flutter_swiper/flutter_swiper.dart';
@@ -207,7 +208,11 @@ import 'package:ebook/view/detail/ebook_detail.dart';
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (BuildContext cxt, int index){
                                         return GestureDetector(
-                                          onTap: (){},
+                                          onTap: (){
+                                            pushPage(context, EbookByCategory(
+                                              idCategory: listCategory[index].catId,
+                                            ));
+                                          },
                                           child: Container(
                                               padding: EdgeInsets.all(5),
                                               child: Stack(
