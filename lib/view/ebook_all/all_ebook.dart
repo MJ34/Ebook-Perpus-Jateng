@@ -1,36 +1,27 @@
-import 'package:ebook/controller/con_favorite.dart';
+import 'package:ebook/controller/con_latest.dart';
 import 'package:ebook/model/model_ebook.dart';
-import 'package:ebook/routers.dart';
-import 'package:ebook/shared_pref.dart';
 import 'package:ebook/view/detail/ebook_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class EbookFavorite extends StatefulWidget {
-  const EbookFavorite({Key? key}) : super(key: key);
+import '../../routers.dart';
+
+class AllEbook extends StatefulWidget {
+  const AllEbook({Key? key}) : super(key: key);
 
   @override
-  _EbookFavoriteState createState() => _EbookFavoriteState();
+  _AllEbookState createState() => _AllEbookState();
 }
 
-class _EbookFavoriteState extends State<EbookFavorite> {
-  Future<List<ModelEbook>>? getFavorite;
-  List<ModelEbook> listFavorite = [];
+class _AllEbookState extends State<AllEbook> {
 
-  String id = "", name = "", email = "", photo = "";
+  Future<List<ModelEbook>>? getLibrary;
+  List<ModelEbook> listLibrary = [];
 
   @override
   void initState() {
     super.initState();
-    prefLoad().then((value) {
-      setState(() {
-        id = value[0];
-        name = value[1];
-        email = value[2];
-        //Get Favorite
-        getFavorite = fetchFavorite(listFavorite, id);
-      });
-    });
+    getLibrary = fetchLatest(listLibrary);
   }
 
   @override
@@ -40,13 +31,13 @@ class _EbookFavoriteState extends State<EbookFavorite> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
-          'Favorite',
+          'All Ebook',
           style: TextStyle(color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
-          future: getFavorite,
+          future: getLibrary,
           builder:
               (BuildContext context, AsyncSnapshot<List<ModelEbook>> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -63,8 +54,8 @@ class _EbookFavoriteState extends State<EbookFavorite> {
                       pushPage(
                           context,
                           EbookDetail(
-                              ebookId: listFavorite[index].id,
-                              status: listFavorite[index].statusNews));
+                              ebookId: listLibrary[index].id,
+                              status: listLibrary[index].statusNews));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(5),
@@ -72,7 +63,7 @@ class _EbookFavoriteState extends State<EbookFavorite> {
                         children: [
                           ClipRRect(
                             child: Image.network(
-                              listFavorite[index].photo,
+                              listLibrary[index].photo,
                               height: 20.h,
                               width: 30.w,
                               fit: BoxFit.cover,
@@ -83,7 +74,7 @@ class _EbookFavoriteState extends State<EbookFavorite> {
                           ),
                           SizedBox(
                             child: Text(
-                              listFavorite[index].title,
+                              listLibrary[index].title,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500),

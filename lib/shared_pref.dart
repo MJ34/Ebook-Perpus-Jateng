@@ -15,6 +15,12 @@ Future prefLoad() async{
   return preferences.getStringList('login');
 }
 
+saveIdCourse(String idCourse) async{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  var _videoAutoPlay = idCourse;
+  await preferences.setString('idCourse', _videoAutoPlay);
+}
+
 saveFavoriteEbook(String favorite) async{
   SharedPreferences preferences = await SharedPreferences.getInstance();
   await preferences.setString('saveFavorite', favorite);

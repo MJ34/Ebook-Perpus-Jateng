@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ebook/controller/api.dart';
 import 'package:ebook/shared_pref.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -23,14 +22,14 @@ saveFavorite({
       onWillPopActive: true,
       title: 'Berhasil',
       desc: 'Berhasil menambahkan ke favorite',
-      style: AlertStyle(
+      style: const AlertStyle(
         animationType: AnimationType.fromBottom,
         backgroundColor: Colors.white
       ),
         buttons: [
           DialogButton(
-            padding: EdgeInsets.all(1),
-            child: Container(
+            padding: const EdgeInsets.all(1),
+            child: const SizedBox(
               height: 40,
               child: Text('Okay'),
             ),
@@ -49,14 +48,14 @@ saveFavorite({
         onWillPopActive: true,
         title: 'Hapus Favorite',
         desc: 'Berhasil menghapus data favorite',
-        style: AlertStyle(
+        style: const AlertStyle(
             animationType: AnimationType.fromBottom,
             backgroundColor: Colors.white
         ),
         buttons: [
           DialogButton(
-            padding: EdgeInsets.all(1),
-            child: Container(
+            padding: const EdgeInsets.all(1),
+            child: const SizedBox(
               height: 40,
               child: Text('Okay'),
             ),
