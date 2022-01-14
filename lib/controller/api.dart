@@ -4,6 +4,7 @@ class ApiConstant{
   String api = "api.php?";
   String slide = "slider";
   String latest = "latest";
+  String search = "search=";
   String coming = "coming";
   String category = "category";
   String ads = "ads";

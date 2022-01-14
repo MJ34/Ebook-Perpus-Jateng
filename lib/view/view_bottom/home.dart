@@ -11,6 +11,7 @@ import 'package:ebook/shared_pref.dart';
 import 'package:ebook/view/detail/ebook_detail.dart';
 import 'package:ebook/view/ebook_all/all_ebook.dart';
 import 'package:ebook/view/ebook_by_cat/ebook_by_cat.dart';
+import 'package:ebook/view/search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:sizer/sizer.dart';
@@ -105,16 +106,20 @@ class _HomeState extends State<Home> {
                           width: 12.w,
                           height: 6.h,
                         ),
-                      )),
+                      )
+            ),
             SizedBox(
               width: 2.w,
             ),
             Text(
-              name,
+              'Hello $name',
               style: const TextStyle(color: Colors.black),
             )
           ],
         ),
+        actions: const [
+          EbookSearch(),
+        ],
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -290,7 +295,7 @@ class _HomeState extends State<Home> {
                       },
                     ),
                   ),
-                  //Coming Soon
+                  //========================COMING SOON===================================================
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: FutureBuilder(

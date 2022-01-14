@@ -14,7 +14,6 @@ class AllEbook extends StatefulWidget {
 }
 
 class _AllEbookState extends State<AllEbook> {
-
   Future<List<ModelEbook>>? getLibrary;
   List<ModelEbook> listLibrary = [];
 

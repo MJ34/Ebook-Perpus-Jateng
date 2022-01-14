@@ -16,11 +16,11 @@ class BottomView extends StatefulWidget {
 class _BottomViewState extends State<BottomView> {
   int currentIndex = 0;
   List<Widget> items = [
-    Home(),
-    EbookLibrary(),
-    EbookNews(),
-    EbookFavorite(),
-    EbookAccount()
+    const Home(),
+    const EbookLibrary(),
+    const EbookNews(),
+    const EbookFavorite(),
+    const EbookAccount()
   ];
 
   @override
