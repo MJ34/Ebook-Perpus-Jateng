@@ -152,7 +152,7 @@ class MangaSearchAction extends SearchDelegate<String> {
     return query.isEmpty
         ? const Center(
             child: Text(
-              'Get search Ebook',
+              'Pancaharian Buku',
               style: TextStyle(fontSize: 18, color: Colors.black),
             ),
           )

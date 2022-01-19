@@ -316,12 +316,12 @@ class _HomeState extends State<Home> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 28,
+                                          fontSize: 32,
                                           letterSpacing: 2),
                                       textAlign: TextAlign.center,
                                     ),
                                     width: MediaQuery.of(context).size.width,
-                                    margin: EdgeInsets.only(top: 3.h),
+                                    margin: EdgeInsets.only(top: 3.h, left: 5.h),
                                   ),
                                 ),
                                 SizedBox(
@@ -341,31 +341,34 @@ class _HomeState extends State<Home> {
                                                     status: listComing[index]
                                                         .statusNews));
                                           },
-                                          child: Column(
-                                            children: [
-                                              ClipRRect(
-                                                child: Image.network(
-                                                  listComing[index].photo,
-                                                  height: 15.h,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Column(
+                                              children: [
+                                                ClipRRect(
+                                                  child: Image.network(
+                                                    listComing[index].photo,
+                                                    height: 15.h,
+                                                    width: 25.w,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 0.5.h,
+                                                ),
+                                                SizedBox(
                                                   width: 25.w,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 0.5.h,
-                                              ),
-                                              SizedBox(
-                                                width: 25.w,
-                                                child: Text(
-                                                  listComing[index].title,
-                                                  style: const TextStyle(
-                                                      color: Colors.black),
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                              )
-                                            ],
+                                                  child: Text(
+                                                    listComing[index].title,
+                                                    style: const TextStyle(
+                                                        color: Colors.black),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }),
